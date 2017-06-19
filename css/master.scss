@@ -1,0 +1,388 @@
+$device-width-max: 850px;
+$device-width-min: 240px;
+$body-color: #fff5ea;
+$device-body-color: #363c47;
+$device-panel-color: lighten($device-body-color, 40%);
+$display-color: #0e3012;
+$display-led-color: #77cc53;
+$half-border: 10px;
+$green-color: #307f26;
+$red-color: #ce1010;
+$blue-color: #242cc1;
+$yellow-color: #f7df2e;
+$button-offset: 2%;
+$switch-height: 3vw;
+$switch-padding: $switch-height / 5;
+$strict-color: #ffb028;
+
+@mixin add-radial-gradient($color, $amount) {
+  background: $color;
+  background: -webkit-radial-gradient(circle closest-side at center, lighten($color, $amount), $color);
+  background: -o-radial-gradient(circle closest-side at center, lighten($color, $amount), $color);
+  background: -moz-radial-gradient(circle closest-side at center, lighten($color, $amount), $color);
+  background: radial-gradient(circle closest-side at center, lighten($color, $amount), $color);
+}
+@mixin inner-shadow($color) {
+  box-shadow: inset 0 0 20px 10px $color;
+}
+@mixin shadow($color) {
+  box-shadow: -10px -10px 20px 0 $color;
+}
+@mixin nonselectable() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+@mixin before-ratio() {
+  &:before {
+    display: block;
+    content: '';
+    padding-top: 100%;
+  }
+}
+@mixin sector-center-shadow() {
+  position: absolute;
+  content: '';
+  width: 50%;
+  height: 50%;
+  display: block;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+body {
+  background-color: $body-color;
+  font-size: 18px;
+  font-family: 'Archivo Narrow', sans-serif;
+  color: #cccccc;
+}
+
+button {
+  font-size: 100%;
+  cursor: pointer;
+  outline: none !important;
+  border: 0;
+}
+
+button::-moz-focus-inner {
+  border: 0 !important;
+}
+
+label {
+  cursor: pointer;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+p,
+span {
+  @include nonselectable();
+}
+
+
+.unselectable {
+  @include nonselectable();
+}
+
+.device-body {
+  position: relative;
+  margin: 1% auto;
+  width: 90%;
+  min-width: $device-width-min;
+  max-width: $device-width-max;
+  border-radius: 50%;
+  background-color: $device-body-color;
+  @include before-ratio();
+}
+
+.device-panel {
+  // color: #ededed;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  @include add-radial-gradient($device-body-color, 20%);
+  border-radius: 50%;
+}
+
+.simon-trademark {
+  font-family: 'Bowlby One SC', cursive;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 15%;
+  text-align: center;
+  span {
+    font-size: 70px;
+    span {
+      position: absolute;
+      font-size: 25px;
+      bottom: 15%;
+      left: 82%;
+    }
+  }
+}
+
+.button-container {
+  letter-spacing: 1px;
+  text-align: center;
+  display: inline-block;
+  width: 30%;
+  margin-top: 10%;
+  span {
+    margin-top: 0.4vw;
+    display: block;
+    font-size: 22px;
+  }
+}
+.strict + label {
+  @include add-radial-gradient(darken($strict-color, 20%), 10%);
+}
+.strict:checked + label {
+  @include add-radial-gradient(darken($strict-color, 20%), 20%);
+  box-shadow: 0 0 10px 0 $strict-color;
+}
+.strict.off + label {
+  @include add-radial-gradient(darken($strict-color, 20%), 10%);
+  box-shadow: none;
+  box-shadow: 0 3px 0 $device-body-color;
+}
+
+
+.round-button {
+  display: inline-block;
+  margin: 0 auto;
+  width: 30%;
+  border-radius: 50%;
+  box-shadow: 0 3px 0 $device-body-color;
+  @include before-ratio();
+}
+
+.round-button:active {
+  box-shadow: none;
+}
+
+.display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 80%;
+  height: 70px;
+  background-color: $display-color;
+  border: 8px solid $device-body-color;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  color: $display-led-color;
+  text-shadow: 1px 1px 4px $display-led-color;
+  box-shadow: inset 0 0 20px 0 #071909;
+  span {
+    font-size: 34px;
+  }
+}
+.display.off {
+  color: $display-color;
+  text-shadow: none;
+}
+
+.offset {
+  margin-left: 5%;
+}
+
+.start-button {
+  @include add-radial-gradient(#b2001d, 10%);
+}
+
+.switch-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5% auto;
+  width: 40%;
+  span {
+    font-size: 22px;
+  }
+  input[type=checkbox] + label {
+    display: block;
+    height: 30px;
+    width: 40%;
+    background-color: darken($device-body-color, 10%);
+    border-radius: 15px;
+    padding: 4px 0;
+    position: relative;
+    &:before {
+      position: absolute;
+      left: 4px;
+      display: inline-block;
+      content: '';
+      width: 22px;
+      height: 22px;
+      background-color: grey;
+      border-radius: 50%;
+      transition: left 0.1s linear;
+    }
+  }
+  input[type=checkbox]:checked + label {
+    &:before {
+      left: calc(100% - 22px - 4px);
+    }
+  }
+}
+
+
+.sector.green.off {
+  background-color: $green-color;
+  box-shadow: none;
+}
+.sector.red.off {
+  background-color: $red-color;
+  box-shadow: none;
+}
+.sector.blue.off {
+  background-color: $blue-color;
+  box-shadow: none;
+}
+.sector.yellow.off {
+  background-color: $yellow-color;
+  box-shadow: none;
+}
+.sector.lighten.green {
+  background-color: lighten($green-color, 20%);
+  @include inner-shadow($green-color);
+}
+.sector.lighten.red {
+  background-color: lighten($red-color, 20%);
+  @include inner-shadow($red-color);
+}
+.sector.lighten.blue {
+  background-color: lighten($blue-color, 20%);
+  @include inner-shadow($blue-color);
+}
+.sector.lighten.yellow {
+  background-color: lighten($yellow-color, 20%);
+  @include inner-shadow($yellow-color);
+}
+.sector {
+  position: absolute;
+  cursor: pointer;
+  width: 50% - 3 * $button-offset;
+  @include before-ratio();
+}
+
+.green {
+  background-color: $green-color;
+  border-radius: 100% 0 0 0;
+  bottom: 50% + $button-offset;
+  right: 50% + $button-offset;
+  &:after {
+    @include sector-center-shadow();
+    bottom: 0;
+    right: 0;
+    border-radius: 100% 0 0 0;
+    @include shadow($green-color);
+  }
+}
+
+.red {
+  background-color: $red-color;
+  border-radius: 0 100% 0 0;
+  bottom: 50% + $button-offset;
+  left: 50% + $button-offset;
+  &:after {
+    @include sector-center-shadow();
+    bottom: 0;
+    left: 0;
+    border-radius: 0 100% 0 0;
+    box-shadow: 10px -10px 20px 0 $red-color;
+  }
+}
+
+.blue {
+  background-color: $blue-color;
+  border-radius: 0 0 100% 0;
+  top: 50% + $button-offset;
+  left: 50% + $button-offset;
+  &:after {
+    @include sector-center-shadow();
+    top: 0;
+    left: 0;
+    border-radius: 0 0 100% 0;
+    box-shadow: 10px 10px 20px 0 $blue-color;
+  }
+}
+
+.yellow {
+  background-color: $yellow-color;
+  border-radius: 0 0 0 100%;
+  top: 50% + $button-offset;
+  right: 50% + $button-offset;
+  &:after {
+    @include sector-center-shadow();
+    top: 0;
+    right: 0;
+    border-radius: 0 0 0 100%;
+    box-shadow: -10px 10px 20px 0 $yellow-color;
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+  .device-body {
+    margin: 5% auto;
+  }
+  .simon-trademark {
+    span {
+      font-size: 6vw;
+      span {
+        font-size: 2vw;
+        left: 77%;
+      }
+    }
+  }
+  .display {
+    height: 7vw;
+    border-width: 0.8vw;
+    span {
+      padding-top: 1vw;
+      font-size: 4vw;
+    }
+  }
+  .button-container {
+    span {
+      font-size: 2.5vw;
+    }
+  }
+  .switch-container {
+    span {
+      font-size: 2.5vw;
+    }
+    input[type=checkbox] + label {
+      height: $switch-height;
+      padding: $switch-padding 0;
+
+      &:before {
+        width: $switch-height - 2 * $switch-padding;
+        height: $switch-height - 2 * $switch-padding;
+      }
+    }
+    input[type=checkbox]:checked + label {
+      &:before {
+        left: calc(100% - #{$switch-height - $switch-padding});
+      }
+    }
+  }
+}
